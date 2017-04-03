@@ -47,10 +47,31 @@ function get (obj, path, defaultReturn = undefined) {
     return result === undefined ? defaultReturn : result
 }
 
+function values (obj) {
+    return Object.keys(obj).map(k => obj[k])
+}
+
+function pairs (obj) {
+    return Object.keys(obj).map(k => [k, obj[k]])
+}
+
+function only (obj, keys) {
+    return Object.keys(obj).reduce(
+        (acc, curr) => {
+            if (keys.includes(curr)) {
+                return Object.assign(acc, {[curr]: obj[curr]})
+            }
+            return acc
+        },
+        {}
+    )
 
 module.exports = {
     readStdin,
     wait,
     set,
-    get
+    get,
+    values,
+    pairs,
+    only
 }
